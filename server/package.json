@@ -1,0 +1,21 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "description": "RESTAPI server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "RESTApi",
+    "Server",
+    "JOSN",
+    "CRUD"
+  ],
+  "author": "Imrul Kais Khan",
+  "license": "MIT ",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

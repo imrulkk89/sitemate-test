@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "title": "Fixed mobile responivie bug",
+        "description": "Fix the responsiveness of application while width is below 800px."
+    },
+    {
+        "id": 2,
+        "title": "Debug and fix the taxation calulation",
+        "description": "Debug the tax calulaton logic, check it is okay or not. If not, fix the logic."
+    },
+    {
+        "id": 3,
+        "title": "Fix the Ract.js loading spin logic in front-end",
+        "description": "When backend request call happen from fornent, react laoding spinner doesn't start and stop in proper timing."
+    },
+    {
+        "id": 4,
+        "title": "Add to cart update logic fix in front-end",
+        "description": "Product can not be added or deleted dynamically in Add to cart page."
+    },
+    {
+        "id": 5,
+        "title": "Debug and fix the product search in backend",
+        "description": "check the logic of  product search with different parameters dynamically "
+    }
+]

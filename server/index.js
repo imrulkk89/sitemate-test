@@ -27,70 +27,99 @@ app.get('/read/:id', (req, res) => {
 })
 
 app.post('/create', async (req, res) => {
-    const { title, description } = req.body;
 
-    const lastId = issues[issues.length-1].id;
+    try {
 
-    let data = await fileHandler.readFile(process.env.DATA_FILE);
+        const { title, description } = req.body;
 
-    data = JSON.parse(data);
+        const lastId = issues[issues.length-1].id;
 
-    const info = {
-        id: lastId + 1,
-        title, 
-        description
-    };
+        let data = await fileHandler.readFile(process.env.DATA_FILE);
 
-    data.push(info);
+        data = JSON.parse(data);
 
-    await fileHandler.writeFile(process.env.DATA_FILE, JSON.stringify(data, null, 2));
+        const info = {
+            id: lastId + 1,
+            title, 
+            description
+        };
 
-    console.log(info);
+        data.push(info);
 
-    return res.status(201).json(info);
+        await fileHandler.writeFile(process.env.DATA_FILE, JSON.stringify(data, null, 2));
+
+        console.log(info);
+
+        return res.status(201).json(info);
+        
+    } catch (error) {
+        throw error;
+    }
+
+    
 })
 
 app.put('/update/:id', async (req, res) => {
 
-    const id  = parseInt(req.params.id, 10);
+    try {
 
-    const { title, description } = req.body;
+        const id  = parseInt(req.params.id, 10);
 
-    const issueUpdate = {
-        id,
-        title,
-        description
+        const { title, description } = req.body;
+
+        const issueUpdate = {
+            id,
+            title,
+            description
+        }
+
+        const udpated = issues.map( item => {
+            if(item.id === id ){
+                return issueUpdate
+            } else 
+                return item
+        });
+
+        console.log(`updated: ${JSON.stringify(issueUpdate, null, 2)}`)
+
+        await fileHandler.writeFile(process.env.DATA_FILE, JSON.stringify(udpated, null, 2));
+
+        return res.status(201).json(issueUpdate);
+        
+    } catch (error) {
+        throw error
     }
 
-    const udpated = issues.map( item => {
-        if(item.id === id ){
-            return issueUpdate
-        } else 
-            return item
-    });
-
-    console.log(`updated: ${JSON.stringify(issueUpdate, null, 2)}`)
-
-    await fileHandler.writeFile(process.env.DATA_FILE, JSON.stringify(udpated, null, 2));
-
-    return res.status(201).json(issueUpdate)
+    
 });
 
 app.delete('/delete/:id', async (req, res) => {
 
-    const id  = parseInt(req.params.id, 10);
+    try {
+        const id  = parseInt(req.params.id, 10);
 
-    const newData = issues.filter(item => item.id !== id);
+        const newData = issues.filter(item => item.id !== id);
 
-    await fileHandler.writeFile(process.env.DATA_FILE, JSON.stringify(newData, null, 2));
+        await fileHandler.writeFile(process.env.DATA_FILE, JSON.stringify(newData, null, 2));
 
-    console.log(`deleted id ${id}`);
+        console.log(`deleted id ${id}`);
 
-    return res.status(202).json({id})
+        return res.status(202).json({id})
+        
+    } catch (error) {
+        throw error
+    }
 })
 
 app.get('/', (req, res)=>{
-    res.json({status : "Okay"});
+    try {
+
+        return res.status(200).json(issues)
+
+    } catch (error) {
+        throw error
+    }
+    
 })
 
 app.listen(PORT, () => {

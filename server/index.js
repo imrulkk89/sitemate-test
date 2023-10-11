@@ -7,7 +7,8 @@ dotEnv.config();
 
 const fileHandler = fs.promises;
 
-const issues = require('./data/issues.json')
+const issues = require('./data/issues.json');
+const { ADDRGETNETWORKPARAMS } = require('dns');
 
 app.use(express.json());
 
@@ -74,6 +75,19 @@ app.put('/update/:id', async (req, res) => {
 
     return res.status(201).json(issueUpdate)
 });
+
+app.delete('/delete/:id', async (req, res) => {
+
+    const id  = parseInt(req.params.id, 10);
+
+    const newData = issues.filter(item => item.id !== id);
+
+    await fileHandler.writeFile(process.env.DATA_FILE, JSON.stringify(newData, null, 2));
+
+    console.log(`deleted id ${id}`);
+
+    return res.status(202).json({id})
+})
 
 app.get('/', (req, res)=>{
     res.json({status : "Okay"});

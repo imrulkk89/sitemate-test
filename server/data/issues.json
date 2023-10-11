@@ -20,11 +20,6 @@
     "description": "Under the category and sub-category of home appliances, adding seller information for the product is not working."
   },
   {
-    "id": 5,
-    "title": "Debug and fix the product search in backend",
-    "description": "check the logic of  product search with different parameters dynamically "
-  },
-  {
     "id": 6,
     "title": "Add seller name in product not woriking",
     "description": "Under the category of home appliances, adding seller information for the product is not working."

@@ -32,5 +32,11 @@ Content-Type: {{contentType}}
 }
 
 
+###
+DELETE {{host}}/delete/5 HTTP/1.1
+Content-Type: {{contentType}}
+
+
+
 
 

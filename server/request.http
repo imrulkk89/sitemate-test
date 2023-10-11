@@ -1,3 +1,9 @@
+#
+# To work with this, install VS Code extenstion named 'REST Client'
+# from this link: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+#
+#
+
 @hostname = http://localhost
 @port = 3000
 @host = {{hostname}}:{{port}}

@@ -49,6 +49,32 @@ app.post('/create', async (req, res) => {
     return res.status(201).json(info);
 })
 
+app.put('/update/:id', async (req, res) => {
+
+    const id  = parseInt(req.params.id, 10);
+
+    const { title, description } = req.body;
+
+    const issueUpdate = {
+        id,
+        title,
+        description
+    }
+
+    const udpated = issues.map( item => {
+        if(item.id === id ){
+            return issueUpdate
+        } else 
+            return item
+    });
+
+    console.log(`updated: ${JSON.stringify(issueUpdate, null, 2)}`)
+
+    await fileHandler.writeFile(process.env.DATA_FILE, JSON.stringify(udpated, null, 2));
+
+    return res.status(201).json(issueUpdate)
+});
+
 app.get('/', (req, res)=>{
     res.json({status : "Okay"});
 })

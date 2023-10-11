@@ -22,3 +22,15 @@ Content-Type: {{contentType}}
 }
 
 
+###
+PUT {{host}}/update/4 HTTP/1.1
+Content-Type: {{contentType}}
+
+{
+    "title": "Add to cart update logic fix in both front-end and backend",
+    "description": "Under the category and sub-category of home appliances, adding seller information for the product is not working."
+}
+
+
+
+

@@ -17,13 +17,23 @@ const PORT = process.env.PORT || 3000;
 
 
 
-app.get('/read/:id', (req, res) => {
+app.get('/read/:id', async (req, res) => {
+    try {
 
-    const id  = parseInt(req.params.id, 10);
+        const id  = parseInt(req.params.id, 10);
 
-    const issue = issues.find( item => item.id === id)
+        let data = await fileHandler.readFile(process.env.DATA_FILE);
 
-    return res.json(issue)
+        data = JSON.parse(data);
+
+        const issue = data.find( item => item.id === id)
+
+        return res.json(issue)
+        
+    } catch (error) {
+        throw error
+    }
+    
 })
 
 app.post('/create', async (req, res) => {
@@ -32,11 +42,11 @@ app.post('/create', async (req, res) => {
 
         const { title, description } = req.body;
 
-        const lastId = issues[issues.length-1].id;
-
         let data = await fileHandler.readFile(process.env.DATA_FILE);
 
         data = JSON.parse(data);
+
+        const lastId = data[data.length-1].id;
 
         const info = {
             id: lastId + 1,
@@ -111,10 +121,14 @@ app.delete('/delete/:id', async (req, res) => {
     }
 })
 
-app.get('/', (req, res)=>{
+app.get('/', async (req, res)=>{
     try {
 
-        return res.status(200).json(issues)
+        let data = await fileHandler.readFile(process.env.DATA_FILE);
+
+        data = JSON.parse(data);
+
+        return res.status(200).json(data)
 
     } catch (error) {
         throw error
